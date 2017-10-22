@@ -1,8 +1,8 @@
 <template>
   <v-app>
-    <v-navigation-drawer v-model="drawer">
+    <v-navigation-drawer temporary v-model="drawer">
       <v-list>
-        <v-list-tile v-for="item in menuItems" :key="item.title">
+        <v-list-tile v-for="item in menuItems" :key="item.title" router :to="item.link">
           <v-list-tile-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-tile-action>
@@ -13,14 +13,16 @@
     <v-toolbar dark class="primary">
       <v-toolbar-side-icon class="hidden-sm-and-up"
       @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title>DevMeetups</v-toolbar-title>
+      <v-toolbar-title>
+        <router-link to="/" tag="span" style="cursor:pointer;">DevMeetups</router-link>
+      </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
-        <v-btn flat v-for="item in menuItems" :key="item.title"><v-icon left>{{ item.icon }}</v-icon>{{ item.title }}</v-btn>
+        <v-btn flat v-for="item in menuItems" :key="item.title" router :to="item.link"><v-icon left>{{ item.icon }}</v-icon>{{ item.title }}</v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <main>
-
+      <router-view></router-view>
     </main>
   </v-app>
 </template>
@@ -31,11 +33,11 @@ export default {
     return {
       drawer: false,
       menuItems: [
-        { icon: 'supervisor_account', title: 'View Meetups' },
-        { icon: 'room', title: 'Organize Meetup' },
-        { icon: 'face', title: 'Signup' },
-        { icon: 'person', title: 'Profile' },
-        { icon: 'lock_open', title: 'Login' }
+        { icon: 'supervisor_account', title: 'View Meetups', link: '/meetups' },
+        { icon: 'room', title: 'Organize Meetup', link: '/meetup/new' },
+        { icon: 'face', title: 'Signup', link: '/signup' },
+        { icon: 'person', title: 'Profile', link: '/profile' },
+        { icon: 'lock_open', title: 'Login', link: '/login' }
       ]
     }
   }
