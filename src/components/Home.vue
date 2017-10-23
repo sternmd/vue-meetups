@@ -11,8 +11,8 @@
 
     <v-layout row wrap class="mt-2">
       <v-flex xs12>
-        <v-carousel>
-          <v-carousel-item v-for="meetup in meetups" :key="meetup.id" :src="meetup.imageUrl">
+        <v-carousel style="cursor:pointer;">
+          <v-carousel-item v-for="meetup in meetups" :key="meetup.id" :src="meetup.imageUrl" @click="onLoadMeetup(meetup.id)">
             <div class="title">
               {{meetup.title}}
             </div>
@@ -38,6 +38,11 @@ export default {
         { imageUrl: 'http://wcbct2019.org/wp-content/uploads/2016/11/AdobeStock_127125938-small-uai-1032x616.jpeg', id: 'asdadasdfeeefeas', title: 'Meetup in Berlin' },
         { imageUrl: 'http://cdn.funcheap.com/wp-content/uploads/2013/09/cityscape-of-san-francisco-from-twin-peaks-california1-563x422.jpg', id: 'asdadasdasdasdas', title: 'Meetup in San Francisco' }
       ]
+    }
+  },
+  methods: {
+    onLoadMeetup (id) {
+      this.$router.push('/meetup/' + id)
     }
   }
 }
