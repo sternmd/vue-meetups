@@ -5,36 +5,50 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
   state: {
-    loadedMeetups: [{
-      imageUrl: 'https://media.timeout.com/images/103678916/image.jpg',
-      id: 'asdadasdasdasdas',
-      title: 'Meetup in NYC',
-      date: '2017-01-17'
-    },
-    {
-      imageUrl: 'http://wcbct2019.org/wp-content/uploads/2016/11/AdobeStock_127125938-small-uai-1032x616.jpeg',
-      id: 'asdadasdfeeefeas',
-      title: 'Meetup in Berlin',
-      date: '2017-01-19'
-    },
-    {
-      imageUrl: 'http://cdn.funcheap.com/wp-content/uploads/2013/09/cityscape-of-san-francisco-from-twin-peaks-california1-563x422.jpg',
-      id: 'asdadasdasdasdas',
-      title: 'Meetup in San Francisco',
-      date: '2017-01-12'
-    }
+    loadedMeetups: [
+      {
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/47/New_york_times_square-terabass.jpg',
+        id: 'afajfjadfaadfa323',
+        title: 'Meetup in New York',
+        description: 'A cool meetup',
+        date: '2017-07-17'
+      },
+      {
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/7a/Paris_-_Blick_vom_gro%C3%9Fen_Triumphbogen.jpg',
+        id: 'aadsfhbkhlk1241',
+        title: 'Meetup in Paris',
+        description: 'The more the merrier',
+        date: '2017-07-19'
+      }
     ],
     user: {
-      id: 'asfgyruv',
-      registeredMeetups: ['asfsgevfdfssd']
+      id: 'ajaldslfalsk12',
+      registeredMeetups: ['aadsfhbkhlk1241']
     }
   },
-  mutations: {}, // to change state
-  actions: {}, // to dispatch the mutations
+  mutations: {
+    createMeetup (state, payload) {
+      state.loadedMeetups.push(payload)
+    }
+  },
+  actions: {
+    createMeetup ({commit}, payload) {
+      const meetup = {
+        title: payload.title,
+        location: payload.location,
+        imageUrl: payload.imageUrl,
+        description: payload.description,
+        date: payload.date,
+        id: 'kfdlsfjslakl12'
+      }
+      // Reach out to firebase and store it
+      commit('createMeetup', meetup)
+    }
+  },
   getters: {
     loadedMeetups (state) {
       return state.loadedMeetups.sort((meetupA, meetupB) => {
-        return meetupA.data > meetupB.date
+        return meetupA.date > meetupB.date
       })
     },
     featuredMeetups (state, getters) {
@@ -47,5 +61,5 @@ export const store = new Vuex.Store({
         })
       }
     }
-  } // use meetups in other places of app
+  }
 })
