@@ -1,6 +1,6 @@
-<template lang="html">
+<template>
   <v-container>
-    <v-layout row wrap class="mb-2">
+    <v-layout row wrap>
       <v-flex xs12 sm6 class="text-xs-center text-sm-right">
         <v-btn large router to="/meetups" class="info">Explore Meetups</v-btn>
       </v-flex>
@@ -8,53 +8,51 @@
         <v-btn large router to="/meetup/new" class="info">Organize Meetup</v-btn>
       </v-flex>
     </v-layout>
-
     <v-layout row wrap class="mt-2">
       <v-flex xs12>
-        <v-carousel style="cursor:pointer;">
-          <v-carousel-item v-for="meetup in meetups" :key="meetup.id" :src="meetup.imageUrl" @click="onLoadMeetup(meetup.id)">
+        <v-carousel style="cursor: pointer;">
+          <v-carousel-item
+            v-for="meetup in meetups"
+            :src="meetup.imageUrl"
+            :key="meetup.id"
+            @click="onLoadMeetup(meetup.id)">
             <div class="title">
-              {{meetup.title}}
+              {{ meetup.title }}
             </div>
           </v-carousel-item>
         </v-carousel>
       </v-flex>
     </v-layout>
-    <v-layout row wrap class="mb-2">
+    <v-layout row wrap  class="mt-2">
       <v-flex xs12 class="text-xs-center">
-        <p>Join our awesome meetups!</p>
+       <p>Join our awesome meetups!</p>
       </v-flex>
     </v-layout>
   </v-container>
 </template>
 
-
 <script>
-export default {
-  data () {
-    return {
-      meetups: [
-        { imageUrl: 'https://media.timeout.com/images/103678916/image.jpg', id: 'asdadasdasdasdas', title: 'Meetup in NYC' },
-        { imageUrl: 'http://wcbct2019.org/wp-content/uploads/2016/11/AdobeStock_127125938-small-uai-1032x616.jpeg', id: 'asdadasdfeeefeas', title: 'Meetup in Berlin' },
-        { imageUrl: 'http://cdn.funcheap.com/wp-content/uploads/2013/09/cityscape-of-san-francisco-from-twin-peaks-california1-563x422.jpg', id: 'asdadasdasdasdas', title: 'Meetup in San Francisco' }
-      ]
-    }
-  },
-  methods: {
-    onLoadMeetup (id) {
-      this.$router.push('/meetup/' + id)
+  export default {
+    computed: {
+      meetups () {
+        return this.$store.getters.featuredMeetups
+      }
+    },
+    methods: {
+      onLoadMeetup (id) {
+        this.$router.push('/meetups/' + id)
+      }
     }
   }
-}
 </script>
 
-<style lang="css" scoped>
+<style scoped>
   .title {
     position: absolute;
     bottom: 50px;
     background-color: rgba(0,0,0,0.5);
-    color:white;
-    font-size:2em;
+    color: white;
+    font-size: 2em;
     padding: 20px;
   }
 </style>
